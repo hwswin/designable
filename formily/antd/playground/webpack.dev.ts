@@ -6,7 +6,7 @@ import MonacoPlugin from 'monaco-editor-webpack-plugin'
 import webpack from 'webpack'
 import path from 'path'
 
-const PORT = 3000
+const PORT = 3003
 
 const createPages = (pages) => {
   return pages.map(({ filename, template, chunk }) => {
@@ -52,5 +52,11 @@ export default {
     host: '127.0.0.1',
     open: true,
     port: PORT,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8020',
+        changeOrigin: true,
+      },
+    },
   },
 }

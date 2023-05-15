@@ -3,6 +3,11 @@ import { ISchema } from '@formily/react'
 export const FormLayout: ISchema = {
   type: 'object',
   properties: {
+    name: {
+      type: 'string',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
     labelCol: {
       type: 'number',
       'x-decorator': 'FormItem',

@@ -44,7 +44,10 @@ export const saveSchema = (designer: Engine) => {
         debugger
         if (res.status >= 200) {
           schema.form.id = res.data.id
-          localStorage.setItem('formily-schema', res.data['body'])
+          localStorage.setItem(
+            'formily-schema',
+            JSON.stringify(res.data['body'])
+          )
           designer.setCurrentTree(transformToTreeNode(res.data['body']))
           message.success('Save Success')
         } else {
@@ -66,7 +69,10 @@ export const loadInitialSchema = (designer: Engine) => {
       .get(`/former/schema/${id}/`)
       .then((res) => {
         if (res.status >= 200) {
-          localStorage.setItem('formily-schema', res.data['body'])
+          localStorage.setItem(
+            'formily-schema',
+            JSON.stringify(res.data['body'])
+          )
           designer.setCurrentTree(transformToTreeNode(res.data['body']))
         } else {
           message.error('Failed to fetch schema')

@@ -4,11 +4,8 @@ import {
   transformToTreeNode,
 } from '@designable/formily-transformer'
 import { message } from 'antd'
-import axios from 'axios'
-const _axios = axios.create({
-  baseURL: '/api', // api 的 base_url
-  timeout: 5000, // 请求超时时间
-})
+import _axios from './axios'
+
 export const saveSchema = (designer: Engine) => {
   const schema = transformToSchema(designer.getCurrentTree())
   const name = schema.form.name
@@ -29,6 +26,7 @@ export const saveSchema = (designer: Engine) => {
       .then((res) => {
         if (res.status >= 200) {
           message.success('Update Success')
+          window.parent.postMessage({ type: 'save' }, '*')
         } else {
           message.error('Update Failed')
         }
@@ -41,7 +39,6 @@ export const saveSchema = (designer: Engine) => {
     _axios
       .post('/former/schema/', requestData)
       .then((res) => {
-        debugger
         if (res.status >= 200) {
           schema.form.id = res.data.id
           localStorage.setItem(
@@ -62,29 +59,36 @@ export const saveSchema = (designer: Engine) => {
 
 export const loadInitialSchema = (designer: Engine) => {
   const urlParams = new URLSearchParams(window.location.search)
+
+  //从地址中获取jwt和csrf_token
+  const csrf_token = urlParams.get('csrf_token')
+  const token = urlParams.get('token')
+  const refreshToken = urlParams.get('refreshToken')
+  if (!csrf_token || !token || !refreshToken) {
+    message.error('!csrf_token||!token||!refreshToken')
+    return
+  }
+  localStorage.setItem('token', token)
+  localStorage.setItem('csrf_token', csrf_token)
+  localStorage.setItem('refreshToken', refreshToken)
+
   const id = urlParams.get('id')
 
   if (id) {
-    _axios
-      .get(`/former/schema/${id}/`)
-      .then((res) => {
-        if (res.status >= 200) {
-          localStorage.setItem(
-            'formily-schema',
-            JSON.stringify(res.data['body'])
-          )
-          designer.setCurrentTree(transformToTreeNode(res.data['body']))
-        } else {
-          message.error('Failed to fetch schema')
-        }
-      })
-      .catch(() => {
+    _axios.get(`/former/schema/${id}/`).then((res) => {
+      if (res.status >= 200) {
+        localStorage.setItem('formily-schema', JSON.stringify(res.data['body']))
+        designer.setCurrentTree(transformToTreeNode(res.data['body']))
+      } else {
         message.error('Failed to fetch schema')
-      })
+      }
+    })
   } else {
     const storedSchema = localStorage.getItem('formily-schema')
-    if (storedSchema) {
-      designer.setCurrentTree(transformToTreeNode(JSON.parse(storedSchema)))
-    }
+    let json = JSON.parse(storedSchema || '{}')
+    delete json.form.id
+
+    designer.setCurrentTree(transformToTreeNode(json))
   }
+  window.parent.postMessage({ type: 'loaded' }, '*')
 }

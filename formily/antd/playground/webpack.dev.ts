@@ -39,7 +39,7 @@ export default {
       {
         filename: 'index.html',
         template: path.resolve(__dirname, './template.ejs'),
-        chunk: ['playground'],
+        chunk: ['vendor', 'playground'],
       },
     ]),
     new webpack.HotModuleReplacementPlugin(),

@@ -35,7 +35,8 @@ import {
   SchemaEditorWidget,
   MarkupSchemaWidget,
 } from './widgets'
-import { saveSchema } from './service'
+import { loadInitialSchema, saveSchema, handleMessage } from './service'
+import { useEffect } from 'react'
 import {
   Form,
   Field,
@@ -114,6 +115,19 @@ const App = () => {
       }),
     []
   )
+
+  useEffect(() => {
+    window.addEventListener('message', handleMessage)
+
+    return () => {
+      window.removeEventListener('message', handleMessage)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadInitialSchema(engine)
+  }, [engine])
+
   return (
     <Designer engine={engine}>
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>

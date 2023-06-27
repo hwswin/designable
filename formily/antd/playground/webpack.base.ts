@@ -38,16 +38,27 @@ export default {
     path: path.resolve(__dirname, '../build'),
     filename: '[name].[hash].bundle.js',
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   resolve: {
     modules: ['node_modules'],
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: getWorkspaceAlias(),
   },
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    moment: 'moment',
-    antd: 'antd',
+    // react: 'React',
+    // 'react-dom': 'ReactDOM',
+    // moment: 'moment',
+    // antd: 'antd',
   },
   module: {
     rules: [

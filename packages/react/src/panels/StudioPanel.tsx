@@ -20,7 +20,8 @@ const StudioPanelInternal: React.FC<IStudioPanelProps> = ({
   const prefix = usePrefix('main-panel')
   const position = usePosition()
   const classNameBase = cls('root', position, props.className)
-  if (logo || actions) {
+  const isConsumerExists = localStorage.getItem('consumer')
+  if (!isConsumerExists && (logo || actions)) {
     return (
       <div {...props} className={cls(`${prefix}-container`, classNameBase)}>
         <div className={prefix + '-header'}>

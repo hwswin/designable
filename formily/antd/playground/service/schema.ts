@@ -5,6 +5,20 @@ import {
 } from '@designable/formily-transformer'
 import { message } from 'antd'
 import _axios from './axios'
+// import { de, fi } from 'element-plus/es/locale'
+let id = 0
+let engine: Engine
+export const handleMessage = (event) => {
+  const { type } = event.data
+  switch (type) {
+    case 'save':
+      debugger
+      if (engine) saveSchema(engine)
+      break
+    default:
+      break
+  }
+}
 
 export const saveSchema = (designer: Engine) => {
   const schema = transformToSchema(designer.getCurrentTree())
@@ -25,14 +39,14 @@ export const saveSchema = (designer: Engine) => {
       .put(`/former/schema/${schema.form.id}/`, requestData)
       .then((res) => {
         if (res.status >= 200) {
-          message.success('Update Success')
+          message.success('保存成功')
           window.parent.postMessage({ type: 'save' }, '*')
         } else {
-          message.error('Update Failed')
+          message.error('保存失败')
         }
       })
       .catch(() => {
-        message.error('Update Failed')
+        message.error('保存失败')
       })
   } else {
     // 执行创建请求
@@ -58,6 +72,16 @@ export const saveSchema = (designer: Engine) => {
 }
 
 export const loadInitialSchema = (designer: Engine) => {
+  engine = designer
+  try {
+    _loadInitialSchema(designer)
+    window.parent.postMessage({ type: 'loaded' }, '*')
+  } catch (e) {
+    message.error(e.message)
+    window.parent.postMessage({ type: 'loaded', message: e.message }, '*')
+  }
+}
+export const _loadInitialSchema = (designer: Engine) => {
   const urlParams = new URLSearchParams(window.location.search)
 
   //从地址中获取jwt和csrf_token
@@ -72,7 +96,11 @@ export const loadInitialSchema = (designer: Engine) => {
   localStorage.setItem('csrf_token', csrf_token)
   localStorage.setItem('refreshToken', refreshToken)
 
-  const id = urlParams.get('id')
+  id = urlParams.get('id')
+  const consumer = urlParams.get('consumer')
+  if (consumer) {
+    localStorage.setItem('consumer', consumer)
+  }
 
   if (id) {
     _axios.get(`/former/schema/${id}/`).then((res) => {
@@ -90,5 +118,4 @@ export const loadInitialSchema = (designer: Engine) => {
 
     designer.setCurrentTree(transformToTreeNode(json))
   }
-  window.parent.postMessage({ type: 'loaded' }, '*')
 }

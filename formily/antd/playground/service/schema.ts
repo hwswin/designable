@@ -6,13 +6,13 @@ import {
 import { message } from 'antd'
 import _axios from './axios'
 // import { de, fi } from 'element-plus/es/locale'
-let id = 0
+let id: any = 0
 let engine: Engine
 export const handleMessage = (event) => {
   const { type, data } = event.data
   switch (type) {
     case 'save':
-      if (engine) saveSchema()
+      if (engine) saveSchema(engine)
       break
     case 'changeTheme':
       if (engine) changeTheme(data.theme)
@@ -22,8 +22,9 @@ export const handleMessage = (event) => {
   }
 }
 
-export const saveSchema = () => {
+export const saveSchema = (designer: Engine) => {
   const schema = transformToSchema(designer.getCurrentTree())
+  if (!schema.form || !schema.schema) return
   const name = schema.form.name
   const schema_str = JSON.stringify(schema)
   localStorage.setItem('formily-schema', schema_str)
@@ -56,7 +57,7 @@ export const saveSchema = () => {
       .post('/former/schema/', requestData)
       .then((res) => {
         if (res.status >= 200) {
-          schema.form.id = res.data.id
+          if (schema.form) schema.form.id = res.data.id
           localStorage.setItem(
             'formily-schema',
             JSON.stringify(res.data['body'])
@@ -92,8 +93,8 @@ export const _loadInitialSchema = (designer: Engine) => {
   const urlParams = new URLSearchParams(window.location.search)
 
   let theme = urlParams.get('theme')
-
-  if (!theme) {
+  // 如果没有从地址中获取到主题，则从本地存储中获取
+  if (theme === 'undefined') {
     theme = localStorage.getItem('theme')
   }
 

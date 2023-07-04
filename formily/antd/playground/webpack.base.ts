@@ -33,7 +33,7 @@ export default {
   },
   entry: {
     playground: path.resolve(__dirname, './main'),
-    themes: path.resolve(__dirname, './themes.css'),
+    themes: path.resolve(__dirname, './themes.less'),
   },
   output: {
     path: path.resolve(__dirname, '../build'),

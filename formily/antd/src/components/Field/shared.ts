@@ -3,6 +3,7 @@ import {
   ReactionsSetter,
   DataSourceSetter,
   ValidatorSetter,
+  FieldTypeSetter,
 } from '@designable/formily-setters'
 import { FormItemSwitcher } from '../../common/FormItemSwitcher'
 import { AllSchemas } from '../../schemas'
@@ -85,20 +86,32 @@ export const createFieldSchema = (
         type: 'void',
         'x-component': 'CollapseItem',
         properties: {
-          name: {
-            type: 'string',
-            'x-decorator': 'FormItem',
-            'x-component': 'Input',
-          },
           title: {
             type: 'string',
             'x-decorator': 'FormItem',
             'x-component': 'Input',
           },
+          name: {
+            type: 'string',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input',
+          },
+          type: {
+            type: 'string',
+            'x-component': FieldTypeSetter,
+            'x-component-props': {
+              defaultValue: '',
+            },
+          },
           description: {
             type: 'string',
             'x-decorator': 'FormItem',
             'x-component': 'Input.TextArea',
+          },
+          required: {
+            type: 'boolean',
+            'x-decorator': 'FormItem',
+            'x-component': 'Switch',
           },
           'x-display': {
             type: 'string',
@@ -133,11 +146,6 @@ export const createFieldSchema = (
           'x-validator': {
             type: 'array',
             'x-component': ValidatorSetter,
-          },
-          required: {
-            type: 'boolean',
-            'x-decorator': 'FormItem',
-            'x-component': 'Switch',
           },
         },
       },

@@ -2,7 +2,11 @@ export const Field = {
   'zh-CN': {
     settings: {
       name: '字段标识',
-      title: '标题',
+      type: {
+        title: '数据类型',
+        tooltip: '数据表中的字段类型',
+      },
+      title: '字段名称',
       required: '必填',
       description: '描述',
       default: '默认值',

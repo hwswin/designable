@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
 import { Space, Button, Radio } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
-import { useDesigner, TextWidget } from '@designable/react'
+import { TextWidget } from '@designable/react'
 import { GlobalRegistry } from '@designable/core'
 import { observer } from '@formily/react'
-import { loadInitialSchema, saveSchema } from '../service'
+import { saveSchema } from '../service'
 
 export const ActionsWidget = observer(() => {
-  const designer = useDesigner()
-  useEffect(() => {
-    loadInitialSchema(designer)
-  }, [])
   const supportLocales = ['zh-cn', 'en-us', 'ko-kr']
   useEffect(() => {
     if (!supportLocales.includes(GlobalRegistry.getDesignerLanguage())) {
@@ -41,14 +37,14 @@ export const ActionsWidget = observer(() => {
       <Button
         type="primary"
         onClick={() => {
-          saveSchema(designer)
+          saveSchema()
         }}
       >
         <TextWidget>发布</TextWidget>
       </Button>
       <Button
         onClick={() => {
-          saveSchema(designer)
+          saveSchema()
         }}
       >
         <TextWidget>保存</TextWidget>

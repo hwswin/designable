@@ -10,6 +10,11 @@ const ValidatorFormats = [
   { label: '日期格式', value: 'date' },
   { label: '邮编格式', value: 'zip' },
 ]
+const FieldTypes = [
+  { label: '文本信息', value: 'string' },
+  { label: '数字', value: 'number' },
+  { label: '是非判断', value: 'boolean' },
+]
 
 export default {
   'zh-CN': {
@@ -94,6 +99,10 @@ export default {
       ValidatorSetter: {
         pleaseSelect: '请选择',
         formats: ValidatorFormats,
+      },
+      FieldTypeSetter: {
+        lengthTitle: '字段长度',
+        types: FieldTypes,
       },
     },
   },

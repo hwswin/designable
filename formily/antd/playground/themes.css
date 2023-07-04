@@ -1,0 +1,85 @@
+:root[theme='blue'] {
+  --dn-brand-color: #1890ff;
+  --dn-brand-hovering: #40a9ff;
+  --dn-brand-dragging: rgba(24, 144, 255, 0.26);
+  --dn-brand-dropping: rgba(24, 144, 255, 0.34);
+  --dn-brand-moving: rgba(24, 144, 255, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
+}
+:root[theme='red'] {
+  --dn-brand-color: #ff4d4f;
+  --dn-brand-hovering: #ff7875;
+  --dn-brand-dragging: rgba(255, 77, 79, 0.26);
+  --dn-brand-dropping: rgba(255, 77, 79, 0.34);
+  --dn-brand-moving: rgba(255, 77, 79, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
+}
+:root[theme='green'] {
+  --dn-brand-color: #52c41a;
+  --dn-brand-hovering: #73d13d;
+  --dn-brand-dragging: rgba(82, 196, 26, 0.26);
+  --dn-brand-dropping: rgba(82, 196, 26, 0.34);
+  --dn-brand-moving: rgba(82, 196, 26, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
+}
+:root[theme='purple'] {
+  --dn-brand-color: #722ed1;
+  --dn-brand-hovering: #9254de;
+  --dn-brand-dragging: rgba(114, 46, 209, 0.26);
+  --dn-brand-dropping: rgba(114, 46, 209, 0.34);
+  --dn-brand-moving: rgba(114, 46, 209, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
+}
+:root[theme='orange'] {
+  --dn-brand-color: #fa8c16;
+  --dn-brand-hovering: #ffa940;
+  --dn-brand-dragging: rgba(250, 140, 22, 0.26);
+  --dn-brand-dropping: rgba(250, 140, 22, 0.34);
+  --dn-brand-moving: rgba(250, 140, 22, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
+}

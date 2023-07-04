@@ -9,18 +9,20 @@ import _axios from './axios'
 let id = 0
 let engine: Engine
 export const handleMessage = (event) => {
-  const { type } = event.data
+  const { type, data } = event.data
   switch (type) {
     case 'save':
-      debugger
-      if (engine) saveSchema(engine)
+      if (engine) saveSchema()
+      break
+    case 'changeTheme':
+      if (engine) changeTheme(data.theme)
       break
     default:
       break
   }
 }
 
-export const saveSchema = (designer: Engine) => {
+export const saveSchema = () => {
   const schema = transformToSchema(designer.getCurrentTree())
   const name = schema.form.name
   const schema_str = JSON.stringify(schema)
@@ -71,6 +73,11 @@ export const saveSchema = (designer: Engine) => {
   }
 }
 
+export const changeTheme = (theme) => {
+  localStorage.setItem('theme', theme)
+  document.documentElement.setAttribute('theme', theme)
+}
+
 export const loadInitialSchema = (designer: Engine) => {
   engine = designer
   try {
@@ -83,6 +90,16 @@ export const loadInitialSchema = (designer: Engine) => {
 }
 export const _loadInitialSchema = (designer: Engine) => {
   const urlParams = new URLSearchParams(window.location.search)
+
+  let theme = urlParams.get('theme')
+
+  if (!theme) {
+    theme = localStorage.getItem('theme')
+  }
+
+  if (theme) {
+    changeTheme(theme)
+  }
 
   //从地址中获取jwt和csrf_token
   const csrf_token = urlParams.get('csrf_token')
